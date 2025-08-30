@@ -47,7 +47,13 @@ let
       platform ? null,
     }:
     let
-      platformSuffix = if platform == null || platform == "" then "" else "targetPlatform=${platform}";
+      platformSuffix =
+        if platform == null || platform == "" then
+          ""
+        else if isOpenVsx then
+          "@${platform}"
+        else
+          "targetPlatform=${platform}";
       platformInfix = if platform == null || platform == "" then "" else "/${platform}";
       extName = "${publisher}.${name}";
     in
